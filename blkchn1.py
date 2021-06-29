@@ -19,7 +19,6 @@ if a previous hash is invalid, one cannot navigate to a previous transaction
 import hashlib
 
 class NewCoinBlock(object):
-	"""docstring for NewCoinBlock"""
 	def __init__(self, prev_block_hash, transaction_list):
 		self.prev_block_hash = prev_block_hash
 		self.transaction_list = transaction_list
