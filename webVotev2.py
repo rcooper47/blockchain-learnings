@@ -7,8 +7,10 @@ V3 Will eliminate double spending and prevent citizens from sending more than th
 V4 Will (hopefully) include front-end to allow for web voting through an interface
 '''
 import hashlib
-
-class VoteBlock(object):
+'''TODO: CONNECT WALLET CLASS TO VOTEBLOCKCHAIN by making transaction into a class that includes Account'''
+class VoteBlockChain(object):
+	'''The blockchain with the record of all votes.
+	Make transaction into a class that includes Account'''
 	def __init__(self, prev_block_hash, transaction_list):
 		self.prev_block_hash = prev_block_hash
 		self.transaction_list = transaction_list
@@ -16,15 +18,19 @@ class VoteBlock(object):
 		self.block_hash = hashlib.sha256(self.block_data.encode()).hexdigest()
 
 class Account(object):
-	def __init__(self):
+	"""Account object that takes in a wallet"""
+	def __init__(self, name, Wallet, nonce = 0):
+		self.name = name
 		self.walletId = [num for num in range(10)]
-		self.Wallet = Wallet(walletId)
-	def sendVote(self, id, recipientId):
+		self.Wallet = Wallet
+		self.nonce = nonce
+	def sexndVote(self, id, recipientId):
 		pass
 class Wallet:
 	"""Wallet for candidates to hold votes they receive
 		walletId, identifier for each wallet (public key)
-		balance starts at 10 for each citizen"""
+		balance starts at 10 for each citizen
+		Can send votes to candidates"""
 	def __init__(self, walletId):
 		self.id = walletId
 		self.balance = 10
@@ -44,14 +50,21 @@ class Wallet:
 	
 
 
+def main():
+	mine = Wallet(11)
+	yours = Wallet(12)
+	print(mine.sendVote(10, mine, yours))
 
+
+if __name__ == '__main__':
+	main()
 mine = Wallet(11)
 yours = Wallet(12)
 mine.sendVote(10, mine, yours)
 print(mine.get_account_balance(11))
 #mine.sendVote(10, mine, yours)
 print(yours.get_account_balance(12))
-
+he = Account("coop", Wallet(13))
 
 
 t1 = "Ryan sends 2 NC to Nova"
@@ -59,7 +72,7 @@ t2 = "Nova sends 234 NC to Nova"
 t3 = "Alma sends 100 NC to Ava"
 t4 = "Ava sends 10 NC to Rj"
 
-genesis_block = VoteBlock("Hello Blockchain", [t1,t2])
+genesis_block = VoteBlockChain("Hello Blockchain", [t1,t2])
 
 print(genesis_block.block_data)
 print(genesis_block.block_hash)
